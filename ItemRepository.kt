@@ -4,19 +4,17 @@ class ItemRepository(private val dao: ItemDAO) {
 
     val items = dao.getAllItems()
 
-    suspend fun insert(item: Item) {
-        dao.insertItem(item)
-    }
-
-    suspend fun update(item: Item) {
-        dao.updateItem(item)
+    suspend fun upsertItem(item: Item) {
+        dao.upsertItem(item)
     }
 
     suspend fun delete(item: Item) {
         dao.deleteItem(item)
     }
 
+    /*
     suspend fun deleteAll(){
         dao.deleteAll()
     }
+     */
 }
