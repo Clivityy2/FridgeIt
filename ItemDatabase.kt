@@ -11,22 +11,24 @@ import androidx.room.RoomDatabase
 )
 abstract class ItemDatabase : RoomDatabase() {
 
-    abstract fun getItemDAO() : ItemDAO
+    abstract val itemDAO : ItemDAO
 
     companion object{
         @Volatile
-        private var instance: ItemDatabase? = null
-        private val LOCK = Any()
-
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-            instance ?: createDataBase(context).also { instance = it }
+        private var INSTANCE : ItemDatabase? = null
+        fun getInstance(context: Context):ItemDatabase{
+            synchronized(this){
+                var instance = INSTANCE
+                if(instance==null){
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        ItemDatabase::class.java,
+                        "item_database"
+                    ).build()
+                    INSTANCE = instance
+                }
+                return instance
+            }
         }
-
-        private fun createDataBase(context: Context) =
-            Room.databaseBuilder(
-                context.applicationContext,
-                ItemDatabase::class.java,
-                "item_db.db"
-            ).build()
     }
 }
