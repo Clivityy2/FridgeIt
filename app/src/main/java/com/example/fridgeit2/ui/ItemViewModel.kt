@@ -3,7 +3,6 @@ package com.example.fridgeit2.ui
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fridgeit2.data.Item
@@ -20,11 +19,6 @@ class ItemViewModel(private val repository: ItemRepository) : ViewModel(),Observ
     val inputExpiryDate = MutableLiveData<String>()
 
     fun upsertItem(item: Item) {
-        val expiry = inputExpiryDate.value!!
-        val itemName = inputItemName.value!!
-        upsertItem(Item(null,expiry,itemName))
-        inputItemName.value = ""
-        inputExpiryDate.value = ""
         viewModelScope.launch {
             repository.upsertItem(item)
         }
