@@ -14,4 +14,8 @@ class ItemRepository(private val dao: ItemDAO) {
     suspend fun delete(item: Item) {
         dao.deleteItem(item)
     }
+
+    suspend fun deleteAll() {
+        dao.deleteAll()
+    }
 }

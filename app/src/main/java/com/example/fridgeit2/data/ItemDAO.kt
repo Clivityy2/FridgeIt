@@ -10,4 +10,6 @@ interface ItemDAO {
     suspend fun deleteItem(item: Item)
     @Query("SELECT * FROM item_table")
     fun getAllItems(): LiveData<List<Item>>
+    @Query("DELETE FROM item_table")
+    suspend fun deleteAll()
 }

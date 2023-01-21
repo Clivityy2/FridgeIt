@@ -28,7 +28,12 @@ class ItemViewModel(private val repository: ItemRepository) : ViewModel(),Observ
         viewModelScope.launch {
             repository.delete(item)
         }
+    }
 
+    fun deleteAllItems(){
+        viewModelScope.launch {
+            repository.deleteAll()
+        }
     }
 
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

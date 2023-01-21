@@ -41,17 +41,21 @@ class HomeActivity : AppCompatActivity() {
         initRecyclerView()
 
         val btnAddItem = binding.btnAddItem
+        val btnDeleteAllItems = binding.btnDeleteAllItems
 
         btnAddItem.setOnClickListener {
             val itemName = binding.etItemName.text.toString()
             val expiryDate = binding.etExpiryDate.text.toString()
             if(itemName.isNotEmpty() and expiryDate.isNotEmpty()) {
-                val item = Item(null, expiryDate, itemName)
+                val item = Item(null ,expiryDate,itemName)
                 Log.d("ITEM", item.toString())
                 itemViewModel.upsertItem(item)
                 binding.etExpiryDate.text.clear()
                 binding.etItemName.text.clear()
             }
+        }
+        btnDeleteAllItems.setOnClickListener{
+            itemViewModel.deleteAllItems()
         }
     }
 
@@ -64,7 +68,7 @@ class HomeActivity : AppCompatActivity() {
     private fun displayItemList() {
         itemViewModel.items.observe(this, Observer {
             binding.rvItems.adapter = ItemRecyclerViewAdapter(it)
-            // up to 1:10:00 https://www.youtube.com/watch?v=v2yocpEcE_g
         })
     }
+
 }
