@@ -24,7 +24,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>(){
         }
     }
 
-    val differ = AsyncListDiffer(this, differCallback)
+    private val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(

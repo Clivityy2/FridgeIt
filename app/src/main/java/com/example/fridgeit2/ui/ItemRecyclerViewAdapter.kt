@@ -26,7 +26,7 @@ class ItemRecyclerViewAdapter(private val itemList: List<Item>) : RecyclerView.A
     }
 }
 
-class ItemViewHolder(val binding: ItemPreviewBinding):RecyclerView.ViewHolder(binding.root) {
+class ItemViewHolder(private val binding: ItemPreviewBinding):RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Item) {
         binding.tvItemExpiry.text = item.itemExpiryDate

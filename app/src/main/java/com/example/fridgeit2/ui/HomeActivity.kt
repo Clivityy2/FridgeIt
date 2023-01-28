@@ -6,7 +6,9 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.fridgeit2.R
 import com.example.fridgeit2.data.Item
 import com.example.fridgeit2.data.ItemDatabase
@@ -25,17 +27,18 @@ class HomeActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_home)
         val dao = ItemDatabase.getInstance(application).itemDAO
         val repository = ItemRepository(dao)
+        val itemRecyclerView = binding.rvItems
+
 
         if(repository != null) {
             Log.d("Repo", "Repo is not null")
-            val factory = ItemViewModelFactory(repository)
+            val factory = ItemViewModelFactory(repository, itemRecyclerView)
             itemViewModel = ViewModelProvider(this, factory).get(ItemViewModel::class.java)
             binding.itemViewModel = itemViewModel
             binding.lifecycleOwner = this
         } else {
             Log.d("Repo", "Repo is  null")
         }
-
         binding.itemViewModel = itemViewModel
         binding.lifecycleOwner = this
         initRecyclerView()
@@ -60,7 +63,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
+        val itemRecyclerView = binding.rvItems
         binding.rvItems.layoutManager = LinearLayoutManager(this)
+        val itemTouchHelper = ItemTouchHelper(itemViewModel.swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(itemRecyclerView)
         displayItemList()
 
     }
@@ -68,7 +74,7 @@ class HomeActivity : AppCompatActivity() {
     private fun displayItemList() {
         itemViewModel.items.observe(this, Observer {
             binding.rvItems.adapter = ItemRecyclerViewAdapter(it)
+
         })
     }
-
 }
