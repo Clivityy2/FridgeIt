@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.fridgeit2.R
 import com.example.fridgeit2.data.Item
 import com.example.fridgeit2.data.ItemDatabase
@@ -29,16 +28,10 @@ class HomeActivity : AppCompatActivity() {
         val repository = ItemRepository(dao)
         val itemRecyclerView = binding.rvItems
 
-
-        if(repository != null) {
-            Log.d("Repo", "Repo is not null")
-            val factory = ItemViewModelFactory(repository, itemRecyclerView)
-            itemViewModel = ViewModelProvider(this, factory).get(ItemViewModel::class.java)
-            binding.itemViewModel = itemViewModel
-            binding.lifecycleOwner = this
-        } else {
-            Log.d("Repo", "Repo is  null")
-        }
+        val factory = ItemViewModelFactory(repository, itemRecyclerView)
+        itemViewModel = ViewModelProvider(this, factory)[ItemViewModel::class.java]
+        binding.itemViewModel = itemViewModel
+        binding.lifecycleOwner = this
         binding.itemViewModel = itemViewModel
         binding.lifecycleOwner = this
         initRecyclerView()

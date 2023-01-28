@@ -1,7 +1,6 @@
 
 package com.example.fridgeit2.ui
 
-import android.content.ClipData.Item
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
