@@ -4,29 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SplashScreenActivity">
+    tools:context=".ui.MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="212dp"
-        android:layout_height="583dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/ic_fridgeitlogo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvCreator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Made by Clive M"
-        android:textAllCaps="true"
-        android:textColor="@color/black"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>

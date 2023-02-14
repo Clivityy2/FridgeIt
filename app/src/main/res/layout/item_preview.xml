@@ -36,13 +36,5 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/tvitemName"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ivDeleteIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/tvItemExpiry"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_input_delete" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
