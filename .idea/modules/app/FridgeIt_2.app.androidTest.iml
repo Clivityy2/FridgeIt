@@ -17,6 +17,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/fb34b8051688bceef5550bc9081575a6/transformed/junit-1.1.5-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e5546b583d10f34344fa37fa1deefe2c/transformed/espresso-core-3.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/6a68f7df8f8388c2fd31611abdcc7d14/transformed/databinding-runtime-7.4.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/bf6aea5b5726536b2a75d13a91015618/transformed/viewbinding-7.4.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/1fd0be4643504a3a314a21a54a4ab4d0/transformed/databinding-adapters-7.4.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-common/7.4.0/84ed411631d2c4113f4ad992669fe3f50a83f072/databinding-common-7.4.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d8bfef226be04d3d58da519eafb1a7ba/transformed/databinding-ktx-7.4.0-api.jar</arg>
@@ -56,7 +57,6 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3ddfcad5fd55f8aa0b3ed0a83b5442b0/transformed/storage-1.4.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/57a24294ac0f69086ef268e1583df5f8/transformed/monitor-1.6.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/c79d186ab7894e646dce4e0c47bd4339/transformed/annotation-1.0.1-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/bf6aea5b5726536b2a75d13a91015618/transformed/viewbinding-7.4.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/7991bbf9831e019c025afa52792303e0/transformed/sqlite-framework-2.3.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/064970e62ff08be788b2207674535dd8/transformed/sqlite-2.3.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/5de534703c08d69d5650ae1c7348fda7/transformed/dynamicanimation-1.0.0-api.jar</arg>
@@ -220,8 +220,8 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test.espresso:espresso-core:3.5.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test:runner:1.5.2@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test.espresso:espresso-idling-resource:3.5.1@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: androidx.databinding:databinding-runtime:7.4.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.databinding:viewbinding:7.4.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.databinding:databinding-runtime:7.4.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-runtime:2.5.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.databinding:databinding-adapters:7.4.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.databinding:databinding-ktx:7.4.0@aar" level="project" />

@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.example.fridgeit2.R
 import java.util.concurrent.Executor
@@ -33,7 +32,7 @@ class SplashScreenFragment : Fragment() {
     ): View? {
 
         val myRunnable = Runnable {
-            findNavController().navigate(R.id.action_splashScreenFragment_to_homeActivity)
+            findNavController().navigate(R.id.action_splashScreenFragment_to_homeFragment)
         }
 
         val myHandler = Handler(Looper.getMainLooper())
