@@ -14,6 +14,8 @@ import com.example.fridgeit2.data.Item
 import com.example.fridgeit2.data.ItemDatabase
 import com.example.fridgeit2.databinding.FragmentAddItemBinding
 import com.example.fridgeit2.repository.ItemRepository
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class AddItemFragment : Fragment(R.layout.fragment_add_item) {
     private lateinit var binding: FragmentAddItemBinding
@@ -38,10 +40,13 @@ class AddItemFragment : Fragment(R.layout.fragment_add_item) {
 
         btnAdd.setOnClickListener{
             val itemName = binding.etFragmentItemName.text.toString()
-            val itemExpiry = binding.etItemExpiryDate.text.toString()
+            val itemExpiryString = binding.etItemExpiryDate.text.toString()
 
-            if (itemName.isNotEmpty() && itemExpiry.isNotEmpty()){
-                val item = Item(null,itemName,itemExpiry)
+
+            if (itemName.isNotEmpty() && itemExpiryString.isNotEmpty()){
+                val dateFormatter = DateTimeFormatter.ofPattern("ddMMyyyy")
+                val expiryDate = LocalDate.parse(itemExpiryString, dateFormatter)
+                val item = Item(null,itemName,expiryDate)
                 Toast.makeText(requireContext(),"$itemName Was Added Successfully",
                 Toast.LENGTH_SHORT).show()
                 itemViewModel.upsertItem(item)

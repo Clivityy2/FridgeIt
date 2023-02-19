@@ -1,3 +1,4 @@
+
 package com.example.fridgeit2.ui
 
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /*
         binding = DataBindingUtil.setContentView(this,R.layout.activity_home)
         val dao = ItemDatabase.getInstance(application).itemDAO
         val repository = ItemRepository(dao)
@@ -69,5 +71,7 @@ class HomeActivity : AppCompatActivity() {
             binding.rvItems.adapter = ItemRecyclerViewAdapter(it)
 
         })
+
+         */
     }
 }

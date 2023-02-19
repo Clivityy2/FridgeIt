@@ -29,7 +29,7 @@ class ItemRecyclerViewAdapter(private val itemList: List<Item>) : RecyclerView.A
 class ItemViewHolder(private val binding: ItemPreviewBinding):RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Item) {
-        binding.tvItemExpiry.text = item.itemExpiryDate
+        binding.tvItemExpiry.text = item.itemExpiryDate.toString()
         binding.tvitemName.text = item.itemName
     }
 }
