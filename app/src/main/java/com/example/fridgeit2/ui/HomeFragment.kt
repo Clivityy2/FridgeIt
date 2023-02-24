@@ -17,7 +17,7 @@ import com.example.fridgeit2.repository.ItemRepository
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    lateinit var binding : FragmentHomeBinding
+    private lateinit var binding : FragmentHomeBinding
     private lateinit var itemViewModel: ItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +30,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onCreate(savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
         val dao = ItemDatabase.getInstance(requireContext()).itemDAO
+        //val db = ItemDatabase.getInstance(requireContext())
         val repository = ItemRepository(dao)
         val itemRecyclerView = binding.rvItems
+
+        //repository.deleteDatabase(requireContext())
 
         val factory = ItemViewModelFactory(repository, itemRecyclerView)
         itemViewModel = ViewModelProvider(this, factory)[ItemViewModel::class.java]
@@ -43,6 +46,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val btnAddItem = binding.btnAddItem
         val btnDeleteAllItems = binding.btnDeleteAllItems
+
 
         btnAddItem.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_addItemFragment)

@@ -21,37 +21,37 @@
             android:id="@+id/etFragmentItemName"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginTop="50dp"
+            android:layout_margin="5dp"
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/light_grey"
             android:ems="10"
-            android:hint="Item Name"
+            android:hint="Name"
             android:inputType="textPersonName"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAddItem" />
+            app:layout_constraintTop_toBottomOf="@+id/tvItemName" />
 
         <EditText
             android:id="@+id/etItemExpiryDate"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/light_grey"
             android:ems="10"
-            android:hint="Item Expiry Date"
+            android:hint="Example: 01/01/2023"
             android:inputType="textPersonName"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etFragmentItemName" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/tvAddItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:text="Add Item"
             android:textAllCaps="true"
             android:textColor="@color/black"
@@ -65,11 +65,11 @@
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="400dp"
             android:background="@drawable/rounded_corners"
             android:text="Add"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etItemExpiryDate" />
@@ -86,5 +86,32 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Item Name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddItem" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Expiry Date (dd/MM/yyyy)"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etFragmentItemName" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,5 +1,6 @@
 package com.example.fridgeit2.repository
 
+import android.content.Context
 import com.example.fridgeit2.data.Item
 import com.example.fridgeit2.data.ItemDAO
 
@@ -18,4 +19,9 @@ class ItemRepository(private val dao: ItemDAO) {
     suspend fun deleteAll() {
         dao.deleteAll()
     }
+
+    fun deleteDatabase(context: Context){
+        context.deleteDatabase("item_database")
+    }
+
 }

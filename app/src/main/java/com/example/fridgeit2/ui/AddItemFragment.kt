@@ -16,6 +16,7 @@ import com.example.fridgeit2.databinding.FragmentAddItemBinding
 import com.example.fridgeit2.repository.ItemRepository
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 class AddItemFragment : Fragment(R.layout.fragment_add_item) {
     private lateinit var binding: FragmentAddItemBinding
@@ -44,23 +45,29 @@ class AddItemFragment : Fragment(R.layout.fragment_add_item) {
 
 
             if (itemName.isNotEmpty() && itemExpiryString.isNotEmpty()){
-                val dateFormatter = DateTimeFormatter.ofPattern("ddMMyyyy")
-                val expiryDate = LocalDate.parse(itemExpiryString, dateFormatter)
-                val item = Item(null,itemName,expiryDate)
-                Toast.makeText(requireContext(),"$itemName Was Added Successfully",
-                Toast.LENGTH_SHORT).show()
-                itemViewModel.upsertItem(item)
-                findNavController().navigate(R.id.action_addItemFragment_to_homeFragment)
-                binding.etFragmentItemName.text.clear()
-                binding.etItemExpiryDate.text.clear()
-            }
+                val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                try {
+                    val expiryDate = LocalDate.parse(itemExpiryString, dateFormatter)
+                    val item = Item(null,itemName,expiryDate)
+                    Toast.makeText(requireContext(),"$itemName Was Added Successfully",
+                        Toast.LENGTH_SHORT).show()
+                    itemViewModel.upsertItem(item)
+                    binding.etFragmentItemName.text.clear()
+                    binding.etItemExpiryDate.text.clear()
+                }
+                catch (e:DateTimeParseException){
+                    Toast.makeText(requireContext(), "Date Format Not Valid Please Use This Format Instead: dd/MM/yyyy",
+                    Toast.LENGTH_LONG).show()
+                }
+
+                }
             else{
                 Toast.makeText(requireContext(),"Could Not Add Item, Please Ensure You Have Filled Out All Fields",
                     Toast.LENGTH_SHORT).show()
             }
         }
 
-        btnClose.setOnClickListener(){
+        btnClose.setOnClickListener{
             findNavController().navigate(R.id.action_addItemFragment_to_homeFragment)
         }
     }
@@ -73,6 +80,7 @@ class AddItemFragment : Fragment(R.layout.fragment_add_item) {
         return inflater.inflate(R.layout.fragment_add_item, container, false)
     }
 
+    /*
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
@@ -81,4 +89,5 @@ class AddItemFragment : Fragment(R.layout.fragment_add_item) {
                 }
             }
     }
+     */
 }
