@@ -13,4 +13,5 @@ data class Item (
     var id: Int?,
     @ColumnInfo(name = "itemName") val itemName: String,
     @ColumnInfo(name = "itemExpiryData") val itemExpiryDate : LocalDate,
+    @ColumnInfo(name = "reminderDate") val reminderDate: Int
 )

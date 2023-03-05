@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fridgeit2.FridgeItApp
+import com.example.fridgeit2.NotificationService
 import com.example.fridgeit2.R
 import com.example.fridgeit2.data.ItemDatabase
 import com.example.fridgeit2.databinding.FragmentHomeBinding
@@ -19,6 +21,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var binding : FragmentHomeBinding
     private lateinit var itemViewModel: ItemViewModel
+    private lateinit var notificationService: NotificationService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val repository = ItemRepository(dao)
         val itemRecyclerView = binding.rvItems
 
+        val fridgeItApp = requireActivity().application as FridgeItApp
+        fridgeItApp.createNotificationChannel()
+
+        notificationService = NotificationService(requireContext())
+        notificationService.showNotification()
+
         //repository.deleteDatabase(requireContext())
 
         val factory = ItemViewModelFactory(repository, itemRecyclerView)
@@ -42,6 +51,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.lifecycleOwner = this
         binding.itemViewModel = itemViewModel
         binding.lifecycleOwner = this
+
         initRecyclerView()
 
         val btnAddItem = binding.btnAddItem
