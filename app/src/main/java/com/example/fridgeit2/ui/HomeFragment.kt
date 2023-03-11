@@ -41,11 +41,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         fridgeItApp.createNotificationChannel()
 
         notificationService = NotificationService(requireContext())
-        notificationService.showNotification()
-
         //repository.deleteDatabase(requireContext())
 
-        val factory = ItemViewModelFactory(repository, itemRecyclerView)
+        val factory = ItemViewModelFactory(requireContext(), repository, itemRecyclerView)
         itemViewModel = ViewModelProvider(this, factory)[ItemViewModel::class.java]
         binding.itemViewModel = itemViewModel
         binding.lifecycleOwner = this
@@ -53,6 +51,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.lifecycleOwner = this
 
         initRecyclerView()
+        itemViewModel.checkIfItemIsDueToExpire()
+        //itemViewModel.testExpiry()
 
         val btnAddItem = binding.btnAddItem
         val btnDeleteAllItems = binding.btnDeleteAllItems
@@ -72,7 +72,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val itemTouchHelper = ItemTouchHelper(itemViewModel.swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(itemRecyclerView)
         displayItemList()
-
     }
 
     private fun displayItemList() {
