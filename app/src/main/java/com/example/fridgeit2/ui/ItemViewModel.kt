@@ -13,7 +13,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
-class ItemViewModel(private val context: Context, private val repository: ItemRepository, private val itemRecyclerView: RecyclerView) : ViewModel(),Observable {
+class ItemViewModel(
+    private val context: Context,
+    private val repository: ItemRepository,
+    private val itemRecyclerView: RecyclerView
+) : ViewModel(), Observable {
 
     private val notificationService = NotificationService(context)
 
@@ -31,52 +35,40 @@ class ItemViewModel(private val context: Context, private val repository: ItemRe
         }
     }
 
-    fun deleteAllItems(){
+    fun deleteAllItems() {
         viewModelScope.launch {
             repository.deleteAll()
         }
     }
 
-
-    fun checkIfItemIsDueToExpire(){
+    fun checkIfItemIsDueToExpire() {
         viewModelScope.launch {
             while (true) {
                 val currentLocalDate = LocalDate.now()
                 for (item in items.value ?: emptyList()) {
                     val newLocalDate = currentLocalDate.minusDays(item.reminderDate.toLong())
 
-                    Log.d("CHECK ITEM EXPIRY","Item Name: ${item.itemName} Expiry Date: ${item.itemExpiryDate} NewDate: $newLocalDate ReminderDate: ${item.reminderDate}")
+                    Log.d(
+                        "CHECK ITEM EXPIRY",
+                        "Item Name: ${item.itemName} Expiry Date: ${item.itemExpiryDate} NewDate: $newLocalDate ReminderDate: ${item.reminderDate}"
+                    )
 
-                    if(item.itemExpiryDate == newLocalDate)
+                    if (item.itemExpiryDate == newLocalDate)
                         notificationService.showNotification(item)
                 }
                 delay(24 * 60 * 60 * 1000) //wait 24hrs before checking again
             }
         }
-
     }
 
-    /*
-    fun testExpiry() {
-        val currentLocalDate = LocalDate.now()
-        for (item in items.value ?: emptyList()) {
-            val newLocalDate = currentLocalDate.minusDays(item.reminderDate.toLong())
-
-            Log.d("CHECK ITEM EXPIRY 2","Item Name: ${item.itemName} Expiry Date: ${item.itemExpiryDate} NewDate: $newLocalDate")
-
-            if(item.itemExpiryDate == newLocalDate)
-                notificationService.showNotification(item)
-        }
-    }
-
-     */
-
-    val swipeToDeleteCallback = object  : SwipeToDeleteCallback(){
+    val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val itemPosition = viewHolder.adapterPosition
             val item = items.value?.get(itemPosition)
-            item?.let { deleteItem(it) }
-            itemRecyclerView.adapter?.notifyItemRemoved(itemPosition)
+            item?.let {
+                deleteItem(it)
+                itemRecyclerView.adapter?.notifyItemRemoved(itemPosition)
+            }
         }
     }
 

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fridgeit2.FridgeItApp
 import com.example.fridgeit2.NotificationService
 import com.example.fridgeit2.R
+import com.example.fridgeit2.data.Item
 import com.example.fridgeit2.data.ItemDatabase
 import com.example.fridgeit2.databinding.FragmentHomeBinding
 import com.example.fridgeit2.repository.ItemRepository
@@ -23,15 +24,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var itemViewModel: ItemViewModel
     private lateinit var notificationService: NotificationService
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentHomeBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+
         val dao = ItemDatabase.getInstance(requireContext()).itemDAO
         //val db = ItemDatabase.getInstance(requireContext())
         val repository = ItemRepository(dao)
@@ -47,12 +50,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         itemViewModel = ViewModelProvider(this, factory)[ItemViewModel::class.java]
         binding.itemViewModel = itemViewModel
         binding.lifecycleOwner = this
-        binding.itemViewModel = itemViewModel
-        binding.lifecycleOwner = this
+
+        val adapter = ItemRecyclerViewAdapter(onDeleteCallback = {item ->
+            itemViewModel.deleteItem(item)
+        })
+
+        binding.rvItems.adapter = adapter
 
         initRecyclerView()
         itemViewModel.checkIfItemIsDueToExpire()
-        //itemViewModel.testExpiry()
 
         val btnAddItem = binding.btnAddItem
         val btnDeleteAllItems = binding.btnDeleteAllItems
@@ -66,25 +72,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun initRecyclerView() {
-        val itemRecyclerView = binding.rvItems
-        binding.rvItems.layoutManager = LinearLayoutManager(requireContext())
-        val itemTouchHelper = ItemTouchHelper(itemViewModel.swipeToDeleteCallback)
-        itemTouchHelper.attachToRecyclerView(itemRecyclerView)
-        displayItemList()
-    }
-
-    private fun displayItemList() {
+    private fun displayItemList(itemList: List<Item>) {
         itemViewModel.items.observe(viewLifecycleOwner, Observer {
-            binding.rvItems.adapter = ItemRecyclerViewAdapter(it)
+            (binding.rvItems.adapter as ItemRecyclerViewAdapter).items = it
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    private fun initRecyclerView() {
+        binding.rvItems.layoutManager = LinearLayoutManager(requireContext())
+        val itemTouchHelper = ItemTouchHelper(itemViewModel.swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(binding.rvItems)
+        itemViewModel.items.observe(viewLifecycleOwner, Observer {
+            displayItemList(it)
+        })
     }
 
     companion object {
